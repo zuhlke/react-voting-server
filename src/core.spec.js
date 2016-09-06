@@ -1,6 +1,6 @@
 import {expect} from 'chai'
 
-import {setEntries} from './core'
+import {setEntries, next} from './core'
 
 describe('application logic', () => {
 
@@ -21,6 +21,31 @@ describe('application logic', () => {
       const nextState = setEntries(state, entries)
       expect(state).to.deep.equal({
         entries: ['sublime', 'emacs']
+      })
+    })
+
+  })
+
+  describe('next', () => {
+
+    it('takes the next two entries under vote', () => {
+      const state = {
+        entries: ['sublime', 'emacs', 'vim']
+      }
+      const nextState = next(state)
+      expect(nextState).to.deep.equal({
+        vote: {
+          pair: ['sublime', 'emacs']
+        },
+        entries: ['vim']
+      })
+    })
+
+    it('does not mutate the state', () => {
+      const state = {entries: ['sublime', 'emacs', 'vim']}
+      const nextState = next(state)
+      expect(state).to.deep.equal({
+        entries: ['sublime', 'emacs', 'vim']
       })
     })
 
