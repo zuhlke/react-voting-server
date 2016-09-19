@@ -66,7 +66,7 @@ describe('application logic', () => {
         entries: []
       })
     })
-    
+
     it('adds to existing tally for the voted entry', () => {
       const state = {
         vote: {
@@ -80,6 +80,24 @@ describe('application logic', () => {
         vote: {
           pair: ['sublime', 'emacs'],
           tally: { 'sublime': 4, 'emacs': 2 }
+        },
+        entries: []
+      })
+    })
+
+    it('does not mutate the state', () => {
+      const state = {
+        vote: {
+          pair: ['sublime', 'emacs'],
+          tally: { 'sublime': 3, 'emacs': 2 }
+        },
+        entries: []
+      }
+      const nextState = vote(state, 'sublime')
+      expect(state).to.deep.equal({
+        vote: {
+          pair: ['sublime', 'emacs'],
+          tally: { 'sublime': 3, 'emacs': 2 }
         },
         entries: []
       })

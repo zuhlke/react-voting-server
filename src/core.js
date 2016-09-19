@@ -16,7 +16,8 @@ export const vote = (state, entry) => ({
   vote: {
     ...state.vote,
     tally: {
-      [entry]: 1
+      ...state.vote.tally,
+      [entry]: ((state.vote.tally || {})[entry] || 0) + 1
     }
   }
 })
