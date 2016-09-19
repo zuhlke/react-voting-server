@@ -66,6 +66,24 @@ describe('application logic', () => {
         entries: []
       })
     })
+    
+    it('adds to existing tally for the voted entry', () => {
+      const state = {
+        vote: {
+          pair: ['sublime', 'emacs'],
+          tally: { 'sublime': 3, 'emacs': 2 }
+        },
+        entries: []
+      }
+      const nextState = vote(state, 'sublime')
+      expect(nextState).to.deep.equal({
+        vote: {
+          pair: ['sublime', 'emacs'],
+          tally: { 'sublime': 4, 'emacs': 2 }
+        },
+        entries: []
+      })
+    })
   })
 
 })
