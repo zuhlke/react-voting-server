@@ -3,13 +3,28 @@ export const setEntries = (state, entries) => ({
   entries: entries
 })
 
-export const next = (state) => ({
-  ...state,
-  vote: {
-    pair: state.entries.slice(0, 2)
-  },
-  entries: state.entries.slice(2)
-})
+const getWinners = (vote) => {
+  if (!vote) return []
+
+  const [a, b] = vote.pair
+  const aVotes = vote.tally[a] || 0
+  const bVotes = vote.tally[b] || 0
+
+  if (aVotes > bVotes) return [a]
+  else if (aVotes < bVotes)  return [b]
+  else return [a, b]
+}
+
+
+export const next = (state) => {
+  const entries = state.entries.concat(getWinners(state.vote))
+
+  return {
+    ...state,
+    vote: { pair: entries.slice(0, 2) },
+    entries: entries.slice(2)
+  }
+}
 
 export const vote = (state, entry) => ({
   ...state,
