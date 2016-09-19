@@ -19,6 +19,17 @@ const getWinners = (vote) => {
 export const next = (state) => {
   const entries = state.entries.concat(getWinners(state.vote))
 
+  if (entries.length === 1) {
+    let nextState = { ...state }
+    delete nextState.vote
+    delete nextState.entries
+
+    return {
+      ...nextState,
+      winner: entries[0]
+    }
+  }
+
   return {
     ...state,
     vote: { pair: entries.slice(0, 2) },
