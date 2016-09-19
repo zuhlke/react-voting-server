@@ -1,3 +1,6 @@
+
+export const INITIAL_STATE = {}
+
 export const setEntries = (state, entries) => ({
   ...state,
   entries: entries
@@ -14,7 +17,6 @@ const getWinners = (vote) => {
   else if (aVotes < bVotes)  return [b]
   else return [a, b]
 }
-
 
 export const next = (state) => {
   const entries = state.entries.concat(getWinners(state.vote))
