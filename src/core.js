@@ -39,13 +39,10 @@ export const next = (state) => {
   }
 }
 
-export const vote = (state, entry) => ({
-  ...state,
-  vote: {
-    ...state.vote,
-    tally: {
-      ...state.vote.tally,
-      [entry]: ((state.vote.tally || {})[entry] || 0) + 1
-    }
+export const vote = (voteState, entry) => ({
+  ...voteState,
+  tally: {
+    ...voteState.tally,
+    [entry]: ((voteState.tally || {})[entry] || 0) + 1
   }
 })
