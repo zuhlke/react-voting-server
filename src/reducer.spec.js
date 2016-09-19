@@ -62,4 +62,20 @@ describe('reducer', () => {
     })
   })
 
+  it('can be used with reduce', () => {
+  const actions = [
+    {type: 'SET_ENTRIES', payload: {entries: ['sublime', 'emacs']}},
+    {type: 'NEXT'},
+    {type: 'VOTE', payload: {entry: 'sublime'}},
+    {type: 'VOTE', payload: {entry: 'emacs'}},
+    {type: 'VOTE', payload: {entry: 'sublime'}},
+    {type: 'NEXT'}
+  ]
+  const finalState = actions.reduce(reducer, {})
+
+  expect(finalState).to.deep.equal({
+    winner: 'sublime'
+  })
+})
+
 })
