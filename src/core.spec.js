@@ -49,6 +49,36 @@ describe('application logic', () => {
       })
     })
 
+    it('puts winner of current vote back to entries', () => {
+      const state = {
+        vote: {
+          pair: ['sublime', 'emacs'],
+          tally: { 'sublime': 4, 'emacs': 2 }
+        },
+        entries: ['vim', 'TextMate', 'notepad']
+      }
+      const nextState = next(state)
+      expect(nextState).to.deep.equal({
+        vote: { pair: ['vim', 'TextMate'] },
+        entries: ['notepad', 'sublime']
+      })
+    })
+
+    it('puts both from tied vote back to entries', () => {
+      const state = {
+        vote: {
+          pair: ['sublime', 'emacs'],
+          tally: { 'sublime': 3, 'emacs': 3 }
+        },
+        entries: ['vim', 'TextMate', 'notepad']
+      }
+      const nextState = next(state)
+      expect(nextState).to.deep.equal({
+        vote: { pair: ['vim', 'TextMate'] },
+        entries: ['notepad', 'sublime', 'emacs']
+      })
+    })
+
   })
 
   describe('vote', () => {
