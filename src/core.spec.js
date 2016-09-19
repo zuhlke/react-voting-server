@@ -79,6 +79,20 @@ describe('application logic', () => {
       })
     })
 
+    it('marks winner when just one entry left', () => {
+      const state = {
+        vote: {
+          pair: ['sublime', 'emacs'],
+          tally: { 'sublime': 4, 'emacs': 2 }
+        },
+        entries: []
+      }
+      const nextState = next(state)
+      expect(nextState).to.deep.equal({
+        winner: 'sublime'
+      })
+    })
+
   })
 
   describe('vote', () => {
