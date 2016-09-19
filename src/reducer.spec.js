@@ -51,4 +51,15 @@ describe('reducer', () => {
     })
   })
 
+  it('has an initial state', () => {
+    const action = {
+      type: 'SET_ENTRIES', 
+      payload: { entries: ['sublime'] }
+    }
+    const nextState = reducer(undefined, action)
+    expect(nextState).to.deep.equal({
+      entries: ['sublime']
+    })
+  })
+
 })
